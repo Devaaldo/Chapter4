@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Matriks Input</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container mt-5">
+			<h3 class="mb-3">Jumlah Kolom dan Baris Matriks</h3>
+			<hr />
+			<div class="row g-2">
+				<!-- Membuat input matriks 4x4 -->
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input
+						readonly="readonly"
+						class="form-control matrix-input"
+						value="0"
+					/>
+				</div>
+
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input
+						readonly="readonly"
+						class="form-control matrix-input"
+						value="0"
+					/>
+				</div>
+
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input type="text" class="form-control" value="0" />
+				</div>
+				<div class="col-3">
+					<input
+						readonly="readonly"
+						class="form-control matrix-input"
+						value="0"
+					/>
+				</div>
+
+				<div class="col-3">
+					<input
+						readonly="readonly"
+						class="form-control result-output"
+						value="0"
+					/>
+				</div>
+				<div class="col-3">
+					<input
+						readonly="readonly"
+						class="form-control result-output"
+						value="0"
+					/>
+				</div>
+				<div class="col-3">
+					<input
+						readonly="readonly"
+						class="form-control result-output"
+						value="0"
+					/>
+				</div>
+				<div class="col-3 d-grid">
+					<button class="btn btn-primary" onclick="calculateSum()">
+						Proses
+					</button>
+				</div>
+			</div>
+		</div>
+		<script>
+			function calculateSum() {
+				let matrixInputs = document.querySelectorAll(
+					".form-control:not(.result-output)"
+				);
+				let matrixResults = document.querySelectorAll(".result-output");
+				let matrix = [];
+				let size = 3; // Matriks 3x3
+
+				// Mengisi array dengan nilai dari input matrix
+				matrixInputs.forEach((input, index) => {
+					let row = Math.floor(index / size);
+					let col = index % size;
+					if (!matrix[row]) matrix[row] = [];
+					matrix[row][col] = parseFloat(input.value) || 0;
+				});
+
+				// Menghitung hasil (contoh: jumlah setiap kolom)
+				let result = [0, 0, 0];
+				for (let i = 0; i < size; i++) {
+					for (let j = 0; j < size; j++) {
+						result[i] += matrix[j][i];
+					}
+				}
+
+				// Memasukkan hasil ke dalam kolom readonly
+				matrixResults.forEach((resultInput, index) => {
+					resultInput.value = result[index];
+				});
+			}
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>

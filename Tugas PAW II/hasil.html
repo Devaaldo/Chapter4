@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Matriks Input</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container mt-5">
+			<h3 class="mb-3">Jumlah Kolom dan Baris Matriks</h3>
+			<hr />
+			<div class="row g-2" id="matrix-container"></div>
+			<div class="mt-3">
+				<button class="btn btn-primary" onclick="calculateSum()">Proses</button>
+			</div>
+		</div>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				generateMatrix();
+			});
+
+			function generateMatrix() {
+				const container = document.getElementById("matrix-container");
+				let matrixHTML = "";
+
+				for (let i = 0; i < 3; i++) {
+					for (let j = 0; j < 3; j++) {
+						matrixHTML += `<div class="col-3">
+                        <input type="number" class="form-control matrix-input" value="0" id="input-${i}-${j}" />
+                    </div>`;
+					}
+					matrixHTML += `<div class="col-3">
+                    <input readonly="readonly" class="form-control matrix-sum" value="0" id="sum-${i}" />
+                </div>`;
+				}
+
+				for (let j = 0; j < 3; j++) {
+					matrixHTML += `<div class="col-3">
+                    <input readonly="readonly" class="form-control column-sum" value="0" id="column-sum-${j}" />
+                </div>`;
+				}
+
+				matrixHTML += `<div class="col-3 d-grid">
+                <input readonly="readonly" class="form-control total-sum" value="0" id="total-sum" />
+            </div>`;
+
+				container.innerHTML = matrixHTML;
+			}
+
+			function calculateSum() {
+				let rowSums = Array(3).fill(0);
+				let colSums = Array(3).fill(0);
+				let totalSum = 0;
+
+				for (let i = 0; i < 3; i++) {
+					for (let j = 0; j < 3; j++) {
+						let value =
+							Number(document.getElementById(`input-${i}-${j}`).value) || 0;
+						rowSums[i] += value;
+						colSums[j] += value;
+						totalSum += value;
+					}
+					document.getElementById(`sum-${i}`).value = rowSums[i];
+				}
+
+				for (let j = 0; j < 3; j++) {
+					document.getElementById(`column-sum-${j}`).value = colSums[j];
+				}
+
+				document.getElementById("total-sum").value = totalSum;
+			}
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
